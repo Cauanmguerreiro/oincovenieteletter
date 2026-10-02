@@ -1,0 +1,234 @@
+{
+  "formatVersion": 1,
+  "source": "O_Inconveniente_Landingpage.html, versão 2",
+  "note": "Exemplo editorial em rascunho. Timestamps representam a geração do seed, não publicação.",
+  "documents": [
+    {
+      "path": "authors/cauan-guerreiro",
+      "data": {
+        "name": "Cauan Guerreiro",
+        "slug": "cauan-guerreiro",
+        "roleLabel": "Founder da CodeBrand",
+        "location": "Viamão — RS",
+        "bioMarkdown": "Sou Cauan Meira Guerreiro, morador de Viamão e Founder da CodeBrand. Atuo com gestão, inovação e desenvolvimento, aproximando ideias de soluções que possam funcionar no dia a dia.\n\nMinha experiência também passa por atividades práticas com jovens. Essa vontade de aproximar pessoas e projetos aparece no PIT Viamão, uma iniciativa que estou estruturando para jovens criarem, testarem ideias e aprenderem a empreender.\n\nEntre o trabalho e os projetos, surgem perguntas que merecem mais do que uma resposta rápida. Quero compartilhar essas perguntas aqui, junto com o que aprendo e o que ainda estou tentando entender.",
+        "createdAt": {
+          "$timestamp": "2026-10-02T18:46:30.345489+00:00"
+        },
+        "updatedAt": {
+          "$timestamp": "2026-10-02T18:46:30.345489+00:00"
+        }
+      }
+    },
+    {
+      "path": "topics/tecnologia",
+      "data": {
+        "name": "Tecnologia & IA",
+        "slug": "tecnologia-e-ia",
+        "description": "Ferramentas, aplicações e o que muda quando a tecnologia entra na vida real.",
+        "sortOrder": 0,
+        "isVisible": true,
+        "updatedAt": {
+          "$timestamp": "2026-10-02T18:46:30.345489+00:00"
+        }
+      }
+    },
+    {
+      "path": "topics/projetos",
+      "data": {
+        "name": "Projetos",
+        "slug": "projetos",
+        "description": "Empreender, experimentar e lidar com o caminho entre uma ideia e sua execução.",
+        "sortOrder": 1,
+        "isVisible": true,
+        "updatedAt": {
+          "$timestamp": "2026-10-02T18:46:30.345489+00:00"
+        }
+      }
+    },
+    {
+      "path": "topics/trabalho",
+      "data": {
+        "name": "Trabalho",
+        "slug": "trabalho",
+        "description": "Carreira, rotina, aprendizado e as escolhas que a gente faz pelo caminho.",
+        "sortOrder": 2,
+        "isVisible": true,
+        "updatedAt": {
+          "$timestamp": "2026-10-02T18:46:30.345489+00:00"
+        }
+      }
+    },
+    {
+      "path": "topics/sociedade",
+      "data": {
+        "name": "Sociedade & política",
+        "slug": "sociedade-e-politica",
+        "description": "Um espaço que quero explorar nas próximas conversas, com opinião e debate.",
+        "sortOrder": 3,
+        "isVisible": true,
+        "updatedAt": {
+          "$timestamp": "2026-10-02T18:46:30.345489+00:00"
+        }
+      }
+    },
+    {
+      "path": "articles/a-ideia-e-boa-mas-pra-quem",
+      "data": {
+        "slug": "a-ideia-e-boa-mas-pra-quem",
+        "title": "A ideia é boa. Mas pra quem?",
+        "excerpt": "Uma reflexão sobre a distância entre querer fazer algo relevante e entender o que realmente precisa ser feito.",
+        "authorId": "cauan-guerreiro",
+        "topicId": "projetos",
+        "status": "draft",
+        "coverImage": null,
+        "readingMinutes": 5,
+        "blocks": [
+          {
+            "id": "piloto-bloco-000",
+            "type": "paragraph",
+            "text": "É fácil se empolgar com uma ideia. A gente imagina o nome, pensa na identidade visual, abre um documento e começa a organizar tudo. Em pouco tempo, já consegue explicar o projeto como se ele estivesse pronto."
+          },
+          {
+            "id": "piloto-bloco-001",
+            "type": "paragraph",
+            "text": "Mas uma apresentação bem montada ainda deixa uma pergunta em aberto: isso faz sentido para quem vai usar, participar ou ser afetado?"
+          },
+          {
+            "id": "piloto-bloco-002",
+            "type": "paragraph",
+            "text": "Tenho pensado nisso ao estruturar projetos. Pela CodeBrand, meu interesse está em aproximar gestão, inovação e desenvolvimento de coisas que possam sair do papel. Em Viamão, essa vontade também aparece na proposta do PIT: um espaço para jovens criarem projetos, testarem ideias e aprenderem a empreender."
+          },
+          {
+            "id": "piloto-bloco-003",
+            "type": "paragraph",
+            "text": "A proposta começa com um piloto gratuito de seis encontros. É um começo concreto, que ainda depende de conversas e parcerias. E é justamente nesse estágio que vale fazer as perguntas difíceis."
+          },
+          {
+            "id": "piloto-bloco-004",
+            "type": "heading",
+            "text": "O problema vem antes do pitch",
+            "level": 3
+          },
+          {
+            "id": "piloto-bloco-005",
+            "type": "paragraph",
+            "text": "Se eu começo escolhendo uma tecnologia, já estou dando uma resposta antes de entender a pergunta. Posso acabar com uma solução interessante para um problema que ninguém considera prioridade."
+          },
+          {
+            "id": "piloto-bloco-006",
+            "type": "paragraph",
+            "text": "Uma ferramenta de inteligência artificial pode ajudar. Um aplicativo pode ajudar. Uma oficina pode ajudar. Mas nenhum deles explica, sozinho, o que falta na rotina de alguém."
+          },
+          {
+            "id": "piloto-bloco-007",
+            "type": "paragraph",
+            "text": "Para descobrir isso, é preciso sair da própria descrição do projeto. Conversar com as pessoas envolvidas, ouvir o que elas já tentaram e entender por que as alternativas disponíveis não foram suficientes."
+          },
+          {
+            "id": "piloto-bloco-008",
+            "type": "quote",
+            "text": "Uma boa ideia precisa sobreviver a uma conversa com quem vive o problema."
+          },
+          {
+            "id": "piloto-bloco-009",
+            "type": "paragraph",
+            "text": "Essa conversa pode mudar o projeto inteiro. Talvez a dificuldade seja outra. Talvez exista uma solução mais simples. Talvez a pessoa não precise do que eu estava tão animado para construir."
+          },
+          {
+            "id": "piloto-bloco-010",
+            "type": "paragraph",
+            "text": "Isso incomoda. Principalmente quando já existe um nome bonito, uma apresentação pronta e a vontade de mostrar que estamos avançando."
+          },
+          {
+            "id": "piloto-bloco-011",
+            "type": "heading",
+            "text": "Começar pequeno também é uma decisão",
+            "level": 3
+          },
+          {
+            "id": "piloto-bloco-012",
+            "type": "paragraph",
+            "text": "Na proposta do PIT Viamão, os participantes escolhem um desafio real, conversam com pessoas envolvidas, criam e testam uma solução e apresentam o que aprenderam. Antes de pensar em ampliar a iniciativa, é preciso descobrir como esse primeiro ciclo funciona."
+          },
+          {
+            "id": "piloto-bloco-013",
+            "type": "paragraph",
+            "text": "Eu gosto da ideia de um piloto porque ele coloca limites úteis. Quantos encontros? Com qual objetivo? O que dá para testar com os recursos e o tempo disponíveis? O que precisamos aprender antes de dar o próximo passo?"
+          },
+          {
+            "id": "piloto-bloco-014",
+            "type": "paragraph",
+            "text": "Quem tenta construir um projeto enquanto trabalha em horário comercial conhece essa conta. A disposição pode ser grande, mas o tempo continua limitado. O primeiro passo precisa caber na vida de quem vai executá-lo."
+          },
+          {
+            "id": "piloto-bloco-015",
+            "type": "paragraph",
+            "text": "Começar com seis encontros é assumir que ainda temos coisas para descobrir. As parcerias estão em formação. A experiência precisa ser testada. Os próximos passos devem levar em conta o que acontecer nesse começo."
+          },
+          {
+            "id": "piloto-bloco-016",
+            "type": "heading",
+            "text": "Ouvir também dá trabalho",
+            "level": 3
+          },
+          {
+            "id": "piloto-bloco-017",
+            "type": "paragraph",
+            "text": "Existe uma parte do processo que dificilmente aparece na apresentação: encontrar as pessoas certas, conciliar horários, explicar a proposta, esperar uma resposta e voltar à conversa quando necessário."
+          },
+          {
+            "id": "piloto-bloco-018",
+            "type": "paragraph",
+            "text": "É um trabalho menos vistoso do que anunciar uma novidade. Mesmo assim, é ali que podemos entender se há interesse, quais condições precisam existir e o que cada pessoa consegue oferecer."
+          },
+          {
+            "id": "piloto-bloco-019",
+            "type": "paragraph",
+            "text": "Para mim, inovação começa a ganhar sentido quando entra nessa rotina. Quando o projeto aceita perguntas. Quando a ideia pode mudar. Quando conseguimos explicar, com clareza, para quem aquilo serve e como vamos descobrir se funciona."
+          },
+          {
+            "id": "piloto-bloco-020",
+            "type": "paragraph",
+            "text": "Esta newsletter nasce com essa disposição. Quero escrever sobre tecnologia, projetos, trabalho e sociedade, compartilhando ideias e fazendo perguntas que também preciso responder."
+          },
+          {
+            "id": "piloto-bloco-021",
+            "type": "paragraph",
+            "text": "A primeira fica aqui: **a ideia em que você está trabalhando resolve um problema que alguém reconhece — ou um problema que só parece importante dentro da sua apresentação?**"
+          },
+          {
+            "id": "piloto-bloco-022",
+            "type": "paragraph",
+            "text": "*Mas, de novo, isso é só mais um **ponto em aberto…***"
+          }
+        ],
+        "publishedAt": null,
+        "createdAt": {
+          "$timestamp": "2026-10-02T18:46:30.345489+00:00"
+        },
+        "updatedAt": {
+          "$timestamp": "2026-10-02T18:46:30.345489+00:00"
+        },
+        "readingCount": 0,
+        "lastReadAt": null
+      }
+    },
+    {
+      "path": "settings/publication",
+      "data": {
+        "publicationName": "O Inconveniente",
+        "tagline": "Ideias que merecem uma segunda pergunta.",
+        "aboutMarkdown": "## Quem eu sou\n\nSou Cauan Meira Guerreiro, morador de Viamão e Founder da CodeBrand. Atuo com gestão, inovação e desenvolvimento, aproximando ideias de soluções que possam funcionar no dia a dia.\n\nMinha experiência também passa por atividades práticas com jovens. Essa vontade de aproximar pessoas e projetos aparece no PIT Viamão, uma iniciativa que estou estruturando para jovens criarem, testarem ideias e aprenderem a empreender.\n\nEntre o trabalho e os projetos, surgem perguntas que merecem mais do que uma resposta rápida. Quero compartilhar essas perguntas aqui, junto com o que aprendo e o que ainda estou tentando entender.\n\n## Por que O Inconveniente?\n\nPorque uma pergunta pode mudar uma conversa inteira. Quero olhar para as promessas, os hábitos e as decisões que a gente costuma aceitar sem parar para pensar.\n\nO corvo representa esse olhar atento. A assinatura continua sendo minha: opinião tem autoria, argumento e espaço para revisão.\n\n**Mas, de novo, isso é só mais um ponto em aberto…**",
+        "defaultAuthorId": "cauan-guerreiro",
+        "featuredArticleSlug": null,
+        "logoMediaId": null,
+        "closingPhrase": "Mas, de novo, isso é só mais um ponto em aberto…",
+        "subscriptionsEnabled": false,
+        "subscriptionCta": "Assinar em breve",
+        "updatedAt": {
+          "$timestamp": "2026-10-02T18:46:30.345489+00:00"
+        }
+      }
+    }
+  ]
+}

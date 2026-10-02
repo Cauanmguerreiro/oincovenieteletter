@@ -1,0 +1,26 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function admin() {
+      return request.auth != null && request.auth.token.newsletterAdmin == true;
+    }
+    function image() {
+      return request.resource.size > 0 && request.resource.size <= 2 * 1024 * 1024
+        && request.resource.contentType.matches('image/(png|jpeg|webp|gif)');
+    }
+    match /brand/{fileName} {
+      allow read: if true;
+      allow create, update: if admin() && image();
+      allow delete: if admin();
+    }
+    match /articles/{articleSlug}/{fileName} {
+      allow read: if admin() || firestore.get(/databases/(default)/documents/articles/$(articleSlug)).data.status == 'published';
+      allow create, update: if admin() && image()
+        && firestore.exists(/databases/(default)/documents/articles/$(articleSlug));
+      allow delete: if admin();
+    }
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

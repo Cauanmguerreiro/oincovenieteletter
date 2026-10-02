@@ -1,0 +1,116 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function admin() {
+      return request.auth != null && request.auth.token.newsletterAdmin == true;
+    }
+    function published(slug) {
+      return exists(/databases/$(database)/documents/articles/$(slug))
+        && get(/databases/$(database)/documents/articles/$(slug)).data.status == 'published';
+    }
+    function slug(value) {
+      return value is string && value.size() <= 120 && value.matches('^[a-z0-9]+(-[a-z0-9]+)*$');
+    }
+    function text(value, maximum) {
+      return value is string && value.size() > 0 && value.size() <= maximum;
+    }
+    function articleValid(d, id) {
+      return d.keys().hasAll(['slug','title','excerpt','authorId','topicId','status','coverImage','readingMinutes','blocks','publishedAt','createdAt','updatedAt','readingCount','lastReadAt'])
+        && d.keys().hasOnly(['slug','title','excerpt','authorId','topicId','status','coverImage','readingMinutes','blocks','publishedAt','createdAt','updatedAt','readingCount','lastReadAt'])
+        && slug(id) && d.slug == id
+        && text(d.title, 200) && text(d.excerpt, 500)
+        && slug(d.authorId) && slug(d.topicId)
+        && exists(/databases/$(database)/documents/authors/$(d.authorId))
+        && exists(/databases/$(database)/documents/topics/$(d.topicId))
+        && d.status in ['draft','published','archived']
+        && (d.coverImage == null || (d.coverImage is map && d.coverImage.keys().hasAll(['mediaId','alt']) && d.coverImage.keys().hasOnly(['mediaId','alt']) && text(d.coverImage.mediaId, 120) && text(d.coverImage.alt, 500)))
+        && d.readingMinutes is int && d.readingMinutes > 0 && d.readingMinutes <= 120
+        && d.blocks is list && d.blocks.size() > 0 && d.blocks.size() <= 150
+        && ((d.status == 'published' && d.publishedAt is timestamp && d.publishedAt <= request.time)
+          || (d.status != 'published' && (d.publishedAt == null || d.publishedAt is timestamp)))
+        && d.createdAt is timestamp && d.updatedAt == request.time
+        && d.readingCount is int && d.readingCount >= 0
+        && (d.lastReadAt == null || d.lastReadAt is timestamp);
+    }
+    match /articles/{id} {
+      allow read: if admin() || resource.data.status == 'published';
+      allow create: if admin() && articleValid(request.resource.data,id)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.readingCount == 0 && request.resource.data.lastReadAt == null;
+      allow update: if admin() && articleValid(request.resource.data,id)
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.readingCount == resource.data.readingCount
+        && request.resource.data.lastReadAt == resource.data.lastReadAt;
+      allow delete: if false;
+    }
+    match /settings/publication {
+      allow read: if true;
+      allow create, update: if admin()
+        && request.resource.data.keys().hasAll(['publicationName','tagline','aboutMarkdown','defaultAuthorId','featuredArticleSlug','logoMediaId','closingPhrase','subscriptionsEnabled','subscriptionCta','updatedAt'])
+        && request.resource.data.keys().hasOnly(['publicationName','tagline','aboutMarkdown','defaultAuthorId','featuredArticleSlug','logoMediaId','closingPhrase','subscriptionsEnabled','subscriptionCta','updatedAt'])
+        && text(request.resource.data.publicationName,120)
+        && text(request.resource.data.tagline,300)
+        && text(request.resource.data.aboutMarkdown,30000)
+        && slug(request.resource.data.defaultAuthorId)
+        && exists(/databases/$(database)/documents/authors/$(request.resource.data.defaultAuthorId))
+        && (request.resource.data.featuredArticleSlug == null || (slug(request.resource.data.featuredArticleSlug) && published(request.resource.data.featuredArticleSlug)))
+        && (request.resource.data.logoMediaId == null || text(request.resource.data.logoMediaId,120))
+        && text(request.resource.data.closingPhrase,500)
+        && request.resource.data.subscriptionsEnabled is bool
+        && text(request.resource.data.subscriptionCta,120)
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
+    match /authors/{id} {
+      allow read: if true;
+      allow create, update: if admin() && slug(id)
+        && request.resource.data.keys().hasAll(['name','slug','roleLabel','location','bioMarkdown','createdAt','updatedAt'])
+        && request.resource.data.keys().hasOnly(['name','slug','roleLabel','location','bioMarkdown','createdAt','updatedAt'])
+        && request.resource.data.slug == id
+        && text(request.resource.data.name,120) && text(request.resource.data.roleLabel,200)
+        && text(request.resource.data.location,200) && text(request.resource.data.bioMarkdown,30000)
+        && request.resource.data.createdAt is timestamp && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
+    match /topics/{id} {
+      allow read: if admin() || resource.data.isVisible == true;
+      allow create, update: if admin() && slug(id)
+        && request.resource.data.keys().hasAll(['name','slug','description','sortOrder','isVisible','updatedAt'])
+        && request.resource.data.keys().hasOnly(['name','slug','description','sortOrder','isVisible','updatedAt'])
+        && slug(request.resource.data.slug) && text(request.resource.data.name,120)
+        && text(request.resource.data.description,1000)
+        && request.resource.data.sortOrder is int && request.resource.data.sortOrder >= 0
+        && request.resource.data.isVisible is bool && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
+    match /media/{id} {
+      allow read: if admin() || (resource.data.status == 'ready'
+        && (resource.data.kind == 'brand' || published(resource.data.articleSlug)));
+      allow create, update: if admin()
+        && request.resource.data.keys().hasAll(['storagePath','mimeType','byteSize','width','height','status','kind','articleSlug','createdAt','updatedAt'])
+        && request.resource.data.keys().hasOnly(['storagePath','mimeType','byteSize','width','height','status','kind','articleSlug','createdAt','updatedAt'])
+        && text(request.resource.data.storagePath,500)
+        && request.resource.data.mimeType in ['image/png','image/jpeg','image/webp','image/gif']
+        && request.resource.data.byteSize is int && request.resource.data.byteSize > 0 && request.resource.data.byteSize <= 2097152
+        && request.resource.data.width is int && request.resource.data.width > 0
+        && request.resource.data.height is int && request.resource.data.height > 0
+        && request.resource.data.status in ['pending','ready']
+        && ((request.resource.data.kind == 'brand' && request.resource.data.articleSlug == null && request.resource.data.storagePath.matches('^brand/[^/]+$'))
+          || (request.resource.data.kind == 'article' && slug(request.resource.data.articleSlug)
+            && exists(/databases/$(database)/documents/articles/$(request.resource.data.articleSlug))
+            && request.resource.data.storagePath.matches('^articles/' + request.resource.data.articleSlug + '/[^/]+$')))
+        && request.resource.data.createdAt is timestamp && request.resource.data.updatedAt == request.time;
+      allow delete: if admin();
+    }
+    match /subscribers/{id} {
+      allow read: if admin();
+      allow write: if false;
+    }
+    match /readDedupe/{id} {
+      allow read, write: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "O Inconveniente — por Cauan Guerreiro",
+  "description": "Tecnologia, projetos, trabalho e sociedade. Uma publicação editorial de opinião por Cauan Guerreiro.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

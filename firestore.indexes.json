@@ -1,0 +1,13 @@
+{
+  "indexes": [
+    {"collectionGroup":"articles","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"publishedAt","order":"DESCENDING"}]},
+    {"collectionGroup":"articles","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"readingCount","order":"DESCENDING"},{"fieldPath":"publishedAt","order":"DESCENDING"}]},
+    {"collectionGroup":"topics","queryScope":"COLLECTION","fields":[{"fieldPath":"isVisible","order":"ASCENDING"},{"fieldPath":"sortOrder","order":"ASCENDING"}]}
+  ],
+  "fieldOverrides": [
+    {"collectionGroup":"articles","fieldPath":"blocks","indexes":[]},
+    {"collectionGroup":"settings","fieldPath":"aboutMarkdown","indexes":[]},
+    {"collectionGroup":"authors","fieldPath":"bioMarkdown","indexes":[]},
+    {"collectionGroup":"readDedupe","fieldPath":"expiresAt","ttl":true,"indexes":[]}
+  ]
+}

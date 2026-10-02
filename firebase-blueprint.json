@@ -1,0 +1,149 @@
+{
+  "entities": {
+    "PublicationSettings": {
+      "title": "PublicationSettings",
+      "description": "Configurações editoriais principais da publicação O Inconveniente",
+      "type": "object",
+      "properties": {
+        "publicationName": { "type": "string", "maxLength": 120, "description": "Nome da publicação" },
+        "tagline": { "type": "string", "maxLength": 300, "description": "Linha fina da publicação" },
+        "aboutMarkdown": { "type": "string", "maxLength": 30000, "description": "Texto em Markdown da página Sobre" },
+        "defaultAuthorId": { "type": "string", "maxLength": 120, "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Slug do autor padrão" },
+        "featuredArticleSlug": { "type": "string", "maxLength": 120, "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Slug do artigo publicado em destaque editorial" },
+        "logoMediaId": { "type": "string", "maxLength": 120, "description": "ID da mídia de logotipo" },
+        "closingPhrase": { "type": "string", "maxLength": 500, "description": "Frase de encerramento editorial" },
+        "subscriptionsEnabled": { "type": "boolean", "description": "Indica se assinaturas estão ativas" },
+        "subscriptionCta": { "type": "string", "maxLength": 120, "description": "Chamada para ação de assinatura" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Timestamp da última atualização" }
+      },
+      "required": ["publicationName", "tagline", "aboutMarkdown", "defaultAuthorId", "closingPhrase", "subscriptionsEnabled", "subscriptionCta", "updatedAt"]
+    },
+    "Author": {
+      "title": "Author",
+      "description": "Perfil de autor e fundação editorial",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 120, "description": "Nome completo do autor" },
+        "slug": { "type": "string", "maxLength": 120, "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Slug identificador único" },
+        "roleLabel": { "type": "string", "maxLength": 200, "description": "Cargo ou função editorial" },
+        "location": { "type": "string", "maxLength": 200, "description": "Cidade e estado de localização" },
+        "bioMarkdown": { "type": "string", "maxLength": 30000, "description": "Biografia detalhada em Markdown" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "slug", "roleLabel", "location", "bioMarkdown", "createdAt", "updatedAt"]
+    },
+    "Topic": {
+      "title": "Topic",
+      "description": "Assunto ou categoria temática das publicações",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 120, "description": "Nome do tema" },
+        "slug": { "type": "string", "maxLength": 120, "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Slug do tema" },
+        "description": { "type": "string", "maxLength": 1000, "description": "Descrição breve do tema" },
+        "sortOrder": { "type": "integer", "description": "Ordem de exibição" },
+        "isVisible": { "type": "boolean", "description": "Visibilidade pública" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "slug", "description", "sortOrder", "isVisible", "updatedAt"]
+    },
+    "Article": {
+      "title": "Article",
+      "description": "Artigo editorial completo com blocos e metadados",
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string", "maxLength": 120, "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Identificador único do artigo na URL" },
+        "title": { "type": "string", "maxLength": 200, "description": "Título editorial" },
+        "excerpt": { "type": "string", "maxLength": 500, "description": "Resumo" },
+        "authorId": { "type": "string", "maxLength": 120, "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Referência ao autor" },
+        "topicId": { "type": "string", "maxLength": 120, "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Referência ao tema" },
+        "status": { "type": "string", "enum": ["draft", "published", "archived"], "description": "Estado editorial" },
+        "readingMinutes": { "type": "integer", "description": "Tempo estimado em minutos" },
+        "coverImage": { "type": "object", "description": "Capa opcional com mediaId e alt" },
+        "blocks": { "type": "array", "description": "Blocos ordenados de conteúdo" },
+        "publishedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "readingCount": { "type": "integer", "description": "Total deduplicado de leituras" },
+        "lastReadAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["slug", "title", "excerpt", "authorId", "topicId", "status", "readingMinutes", "blocks", "createdAt", "updatedAt", "readingCount"]
+    },
+    "Media": {
+      "title": "Media",
+      "description": "Metadados de imagens armazenadas no Storage",
+      "type": "object",
+      "properties": {
+        "storagePath": { "type": "string", "maxLength": 500 },
+        "mimeType": { "type": "string", "enum": ["image/png", "image/jpeg", "image/webp", "image/gif"] },
+        "byteSize": { "type": "integer" },
+        "width": { "type": "integer" },
+        "height": { "type": "integer" },
+        "status": { "type": "string", "enum": ["pending", "ready"] },
+        "kind": { "type": "string", "enum": ["brand", "article"] },
+        "articleSlug": { "type": "string", "maxLength": 120 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["storagePath", "mimeType", "byteSize", "width", "height", "status", "kind", "createdAt", "updatedAt"]
+    },
+    "ReadDedupe": {
+      "title": "ReadDedupe",
+      "description": "Registro de deduplicação diária de leitura por HMAC SHA-256",
+      "type": "object",
+      "properties": {
+        "articleSlug": { "type": "string", "maxLength": 120 },
+        "viewDay": { "type": "string", "maxLength": 10 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["articleSlug", "viewDay", "createdAt", "expiresAt"]
+    },
+    "Subscriber": {
+      "title": "Subscriber",
+      "description": "Assinante reservado para fluxos futuros com consentimento explícito",
+      "type": "object",
+      "properties": {
+        "emailNormalized": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "active", "unsubscribed"] },
+        "consentAt": { "type": "string", "format": "date-time" },
+        "confirmedAt": { "type": "string", "format": "date-time" },
+        "unsubscribedAt": { "type": "string", "format": "date-time" },
+        "source": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["emailNormalized", "status", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/settings/publication": {
+      "schema": { "$ref": "#/entities/PublicationSettings" },
+      "description": "Configurações da publicação"
+    },
+    "/authors/{authorId}": {
+      "schema": { "$ref": "#/entities/Author" },
+      "description": "Perfis dos autores da publicação"
+    },
+    "/topics/{topicId}": {
+      "schema": { "$ref": "#/entities/Topic" },
+      "description": "Tópicos editoriais"
+    },
+    "/articles/{slug}": {
+      "schema": { "$ref": "#/entities/Article" },
+      "description": "Artigos editoriais"
+    },
+    "/media/{mediaId}": {
+      "schema": { "$ref": "#/entities/Media" },
+      "description": "Metadados de arquivos de mídia"
+    },
+    "/readDedupe/{hash}": {
+      "schema": { "$ref": "#/entities/ReadDedupe" },
+      "description": "Registros de deduplicação de leitura"
+    },
+    "/subscribers/{emailHash}": {
+      "schema": { "$ref": "#/entities/Subscriber" },
+      "description": "Assinantes reservados para futura implementação"
+    }
+  }
+}
